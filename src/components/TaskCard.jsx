@@ -1,4 +1,4 @@
-import useTaskStore from "../store/taskStore";
+import { useTaskStore } from "../store/taskStore";
 
 const TaskCard = ({ task }) => {
   const deleteTask = useTaskStore((state) => state.deleteTask);

@@ -1,14 +1,20 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const useTaskStore = create(
+// store/taskStore.js
+export const useTaskStore = create(
   persist(
     (set) => ({
       tasks: [],
+      filter: "all", // Added
+      search: "", // Added
 
-      addTask: (task) =>
+      setFilter: (filter) => set({ filter }), // Added
+      setSearch: (search) => set({ search }), // Added
+
+      addTask: (title) =>
         set((state) => ({
-          tasks: [...state.tasks, task],
+          tasks: [...state.tasks, { id: Date.now(), title, completed: false }],
         })),
 
       deleteTask: (id) =>
@@ -19,16 +25,10 @@ const useTaskStore = create(
       toggleTask: (id) =>
         set((state) => ({
           tasks: state.tasks.map((task) =>
-            task.id === id
-              ? { ...task, completed: !task.completed }
-              : task
+            task.id === id ? { ...task, completed: !task.completed } : task,
           ),
         })),
     }),
-    {
-      name: "task-storage",
-    }
-  )
+    { name: "task-storage" },
+  ),
 );
-
-export default useTaskStore;

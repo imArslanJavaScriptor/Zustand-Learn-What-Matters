@@ -1,4 +1,4 @@
-import useTaskStore from "../store/taskStore";
+import { useTaskStore } from "../store/taskStore";
 
 import Navbar from "../components/Navbar";
 import TaskForm from "../components/TaskForm";
